@@ -12,32 +12,32 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _controller = gameObject.AddComponent<CharacterController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 deltaTransform = new Vector3(0.0f, 0.0f, 0.0f);
+
         if (Input.GetKey("w"))
         {
-            transform.position += transform.TransformDirection(Vector3.forward)
-                                  * Time.deltaTime * maxSpeed;
+            deltaTransform = transform.TransformDirection(Vector3.forward);
         }
         else if (Input.GetKey("s"))
         {
-            transform.position += transform.TransformDirection(Vector3.back)
-                                  * Time.deltaTime * maxSpeed;
+            deltaTransform = transform.TransformDirection(Vector3.back);
         }
         else if (Input.GetKey("a"))
         {
-            transform.position += transform.TransformDirection(Vector3.left)
-                                  * Time.deltaTime * maxSpeed;
+            deltaTransform = transform.TransformDirection(Vector3.left);
         }
         else if (Input.GetKey("d"))
         {
-            transform.position += transform.TransformDirection(Vector3.right)
-                                  * Time.deltaTime * maxSpeed;
+            deltaTransform = transform.TransformDirection(Vector3.right);
         }
+        transform.position += deltaTransform * Time.deltaTime * maxSpeed;
+
         // Vector3 movementRatio = new Vector3(Input.GetAxis("Horizontal"), 0,
         //                                     Input.GetAxis("Vertical"));
 
