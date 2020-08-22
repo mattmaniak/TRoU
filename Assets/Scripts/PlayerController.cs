@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ControlByKeyboard();
+    }
+
+    void ControlByKeyboard()
+    {
         Vector3 deltaTransform = new Vector3(0.0f, 0.0f, 0.0f);
 
         if (Input.GetKey("w"))
