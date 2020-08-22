@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
         {
             deltaTransform = transform.TransformDirection(Vector3.right);
         }
+        else if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
         transform.position += deltaTransform * Time.deltaTime * maxSpeed;
 
         // Vector3 movementRatio = new Vector3(Input.GetAxis("Horizontal"), 0,
