@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public const float maxSpeed = 5;
+    public float maxSpeed = 2;
+
     private Vector3 _velocity;
     private CharacterController _controller;
     
@@ -20,6 +21,21 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("w"))
         {
             transform.position += transform.TransformDirection(Vector3.forward)
+                                  * Time.deltaTime * maxSpeed;
+        }
+        else if (Input.GetKey("s"))
+        {
+            transform.position += transform.TransformDirection(Vector3.back)
+                                  * Time.deltaTime * maxSpeed;
+        }
+        else if (Input.GetKey("a"))
+        {
+            transform.position += transform.TransformDirection(Vector3.left)
+                                  * Time.deltaTime * maxSpeed;
+        }
+        else if (Input.GetKey("d"))
+        {
+            transform.position += transform.TransformDirection(Vector3.right)
                                   * Time.deltaTime * maxSpeed;
         }
         // Vector3 movementRatio = new Vector3(Input.GetAxis("Horizontal"), 0,
