@@ -33,7 +33,9 @@ public class PlayerController : MonoBehaviour
         {
             deltaTransform = transform.TransformDirection(Vector3.back);
         }
-        else if (Input.GetKey("a"))
+        transform.position += deltaTransform * Time.deltaTime * maxSpeed;
+        
+        if (Input.GetKey("a"))
         {
             deltaTransform = transform.TransformDirection(Vector3.left);
         }
