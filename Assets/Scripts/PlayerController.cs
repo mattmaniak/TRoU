@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxSpeed = 2;
+    public float maxSpeed = 0.2f;
 
     private Vector3 _velocity;
     private CharacterController _controller;
@@ -23,35 +23,35 @@ public class PlayerController : MonoBehaviour
 
     void ControlByKeyboard()
     {
-        Vector3 deltaTransform = new Vector3(0.0f, 0.0f, 0.0f);
-
         if (Input.GetKey("w"))
         {
-            deltaTransform = transform.TransformDirection(Vector3.forward);
+            transform.position += transform.TransformDirection(Vector3.forward)
+                                  * Time.deltaTime * maxSpeed;
         }
         else if (Input.GetKey("s"))
         {
-            deltaTransform = transform.TransformDirection(Vector3.back);
+            transform.position += transform.TransformDirection(Vector3.back)
+                                  * Time.deltaTime * maxSpeed;
         }
-        transform.position += deltaTransform * Time.deltaTime * maxSpeed;
         
         if (Input.GetKey("a"))
         {
-            deltaTransform = transform.TransformDirection(Vector3.left);
+            transform.position += transform.TransformDirection(Vector3.left)
+                                  * Time.deltaTime * maxSpeed;
         }
         else if (Input.GetKey("d"))
         {
-            deltaTransform = transform.TransformDirection(Vector3.right);
+            transform.position += transform.TransformDirection(Vector3.right)
+                                  * Time.deltaTime * maxSpeed;
         }
-        else if (Input.GetKey("escape"))
+        if (Input.GetKey("space"))
+        {
+            transform.position += transform.TransformDirection(Vector3.up)
+                                  * Time.deltaTime * maxSpeed;
+        }
+        if (Input.GetKey("escape"))
         {
             Application.Quit();
         }
-        transform.position += deltaTransform * Time.deltaTime * maxSpeed;
-
-        // Vector3 movementRatio = new Vector3(Input.GetAxis("Horizontal"), 0,
-        //                                     Input.GetAxis("Vertical"));
-
-        // _controller.Move(movementRatio * Time.deltaTime);
     }
 }
