@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
             if (transform.position.y < jumpHeight)
             {
                 transform.position += transform.TransformDirection(Vector3.up)
-                                      * Time.deltaTime * speed;
+                                      * Time.deltaTime * jumpHeight;
             }
             else
             {
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         else if (transform.position.y > 0.5f)
         {
             transform.position += transform.TransformDirection(Vector3.down)
-                                  * Time.deltaTime * speed;
+                                  * Time.deltaTime * jumpHeight;
         }
     }
 }
