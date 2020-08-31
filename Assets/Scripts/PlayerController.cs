@@ -7,27 +7,27 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 1.5f;
     public float runSpeed = 2.5f;
     public float jumpHeight = 1.0f;
+    public float mouseSensitivity = 1.7f;
+    public Transform camera;
 
     private bool _falling = false;
     private bool _jumping = false;
-    private float _jumpTime = 0.0f;
-    private Vector3 _velocity;
-    private CharacterController _controller;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        RotateCamera();
         ControlByKeyboard();
         SimpleJump();
     }
 
-    void ControlByKeyboard()
+    private void ControlByKeyboard()
     {
         float speed = walkSpeed;
 
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SimpleJump()
+    private void SimpleJump()
     {
         if (_jumping)
         {
@@ -93,5 +93,23 @@ public class PlayerController : MonoBehaviour
                 _jumping = _falling = false;
             }
         }
+    }
+
+    // TODO: LATERAL MOVEMENT INSTEAD OF STATIC ROTATION.
+    private void RotateCamera()
+    {
+        float horizontalRotation = Input.GetAxis("Mouse X");
+        float verticalRotation = Input.GetAxis("Mouse Y");
+        Vector3 currentRotation = new Vector3(0.0f, 0.0f, 0.0f);
+
+        transform.Rotate(0, horizontalRotation * mouseSensitivity, 0.0f);
+        camera.Rotate(-verticalRotation * mouseSensitivity, 0.0f, 0.0f);
+
+        currentRotation = camera.localEulerAngles;
+        if (currentRotation.x > 180.0f)
+        {
+            currentRotation.x -= 360.0f;
+        }
+        camera.localRotation = Quaternion.Euler(currentRotation);
     }
 }
