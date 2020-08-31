@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 2.5f;
     public float jumpHeight = 1.0f;
 
+    private bool _falling = false;
     private bool _jumping = false;
     private float _jumpTime = 0.0f;
-
     private Vector3 _velocity;
     private CharacterController _controller;
     
@@ -31,34 +31,37 @@ public class PlayerController : MonoBehaviour
     {
         float speed = walkSpeed;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!_jumping && !_falling)
         {
-            speed = runSpeed;
-        }
-        if (Input.GetKey("w"))
-        {
-            transform.position += transform.TransformDirection(Vector3.forward)
-                                  * Time.deltaTime * speed;
-        }
-        else if (Input.GetKey("s"))
-        {
-            transform.position += transform.TransformDirection(Vector3.back)
-                                  * Time.deltaTime * speed;
-        }
-        
-        if (Input.GetKey("a"))
-        {
-            transform.position += transform.TransformDirection(Vector3.left)
-                                  * Time.deltaTime * speed;
-        }
-        else if (Input.GetKey("d"))
-        {
-            transform.position += transform.TransformDirection(Vector3.right)
-                                  * Time.deltaTime * speed;
-        }
-        if (Input.GetKey("space"))
-        {
-            _jumping = true;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = runSpeed;
+            }
+            if (Input.GetKey("w"))
+            {
+                transform.position += transform.TransformDirection(Vector3.forward)
+                                    * Time.deltaTime * speed;
+            }
+            else if (Input.GetKey("s"))
+            {
+                transform.position += transform.TransformDirection(Vector3.back)
+                                    * Time.deltaTime * speed;
+            }
+            
+            if (Input.GetKey("a"))
+            {
+                transform.position += transform.TransformDirection(Vector3.left)
+                                    * Time.deltaTime * speed;
+            }
+            else if (Input.GetKey("d"))
+            {
+                transform.position += transform.TransformDirection(Vector3.right)
+                                    * Time.deltaTime * speed;
+            }
+            if (Input.GetKey("space"))
+            {
+                _jumping = true;
+            }
         }
         if (Input.GetKey("escape"))
         {
@@ -78,12 +81,17 @@ public class PlayerController : MonoBehaviour
             else
             {
                 _jumping = false;
+                _falling = !_jumping;
             }
         }
-        else if (transform.position.y > 0.5f)
+        else if (_falling)
         {
             transform.position += transform.TransformDirection(Vector3.down)
                                   * Time.deltaTime * jumpHeight;
+            if (transform.position.y <= 0.0f)
+            {
+                _jumping = _falling = false;
+            }
         }
     }
 }
