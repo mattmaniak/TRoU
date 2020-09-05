@@ -20,33 +20,48 @@ public class CameraController : MonoBehaviour
 
     void MoveCamera()
     {
-        var mousePositionOnScreen = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
+        const float sqrtOfTwo = 1.4142f;
+
+        bool movingDiagonally = false;
+        float frameMultiplier = Time.deltaTime * cameraSpeed;
+
+        var mousePositionOnScreen = new Vector3(Input.mousePosition.x,
+                                                Input.mousePosition.y,
+                                                0.0f);
+
         var screenSize = new Vector3(Screen.width, Screen.height, 0.0f);
+
         var relativeMousePosition = new Vector3(mousePositionOnScreen.x / screenSize.x,
                                                 mousePositionOnScreen.y / screenSize.y,
                                                 0.0f);
 
+        // Normalize diagonal movement.
+        if (((relativeMousePosition.x < 0.25f) || (relativeMousePosition.x > 0.75f))
+            && ((relativeMousePosition.y < 0.25f) || (relativeMousePosition.y > 0.75f)))
+        {
+            frameMultiplier /= sqrtOfTwo;            
+        }
+
         if (relativeMousePosition.x < 0.25f)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.left)
-                                               * Time.deltaTime * cameraSpeed;
+                                               * frameMultiplier;
         }
         else if (relativeMousePosition.x > 0.75f)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.right)
-                                               * Time.deltaTime * cameraSpeed;
+                                               * frameMultiplier;
         }
 
         if (relativeMousePosition.y < 0.25f)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.down)
-                                               * Time.deltaTime * cameraSpeed;
+                                               * frameMultiplier;
         }
         else if (relativeMousePosition.y > 0.75f)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.up)
-                                               * Time.deltaTime * cameraSpeed;
+                                               * frameMultiplier;
         }
-        Debug.Log(cameraHolder.transform.position);
     }
 }
