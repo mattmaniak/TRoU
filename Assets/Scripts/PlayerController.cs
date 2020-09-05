@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        RotateCamera();
         ControlByKeyboard();
         SimpleJump();
     }
@@ -95,7 +94,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // TODO: LATERAL MOVEMENT INSTEAD OF STATIC ROTATION.
     private void RotateCamera()
     {
         float horizontalRotation = Input.GetAxis("Mouse X");
