@@ -22,6 +22,8 @@ public class CameraController : MonoBehaviour
     void MoveCamera()
     {
         const float sqrtOfTwo = 1.4142f;
+        const float minBorder = 0.01f;
+        const float maxBorder = 0.99f;
 
         bool movingDiagonally = false;
         float frameMultiplier = Time.deltaTime * cameraSpeed;
@@ -37,29 +39,29 @@ public class CameraController : MonoBehaviour
                                                 0.0f);
 
         // Normalize diagonal movement.
-        if (((relativeMousePosition.x < 0.25f) || (relativeMousePosition.x > 0.75f))
-            && ((relativeMousePosition.y < 0.25f) || (relativeMousePosition.y > 0.75f)))
+        if (((relativeMousePosition.x < minBorder) || (relativeMousePosition.x > maxBorder))
+            && ((relativeMousePosition.y < minBorder) || (relativeMousePosition.y > maxBorder)))
         {
             frameMultiplier /= sqrtOfTwo;            
         }
 
-        if (relativeMousePosition.x < 0.25f)
+        if (relativeMousePosition.x < minBorder)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.left)
                                                * frameMultiplier;
         }
-        else if (relativeMousePosition.x > 0.75f)
+        else if (relativeMousePosition.x > maxBorder)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.right)
                                                * frameMultiplier;
         }
 
-        if (relativeMousePosition.y < 0.25f)
+        if (relativeMousePosition.y < minBorder)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.down)
                                                * frameMultiplier;
         }
-        else if (relativeMousePosition.y > 0.75f)
+        else if (relativeMousePosition.y > maxBorder)
         {
             cameraHolder.transform.position += transform.TransformDirection(Vector3.up)
                                                * frameMultiplier;
