@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 1.5f;
     public float runSpeed = 2.5f;
     public float jumpHeight = 1.0f;
+    public static bool _selected = false;
     NavMeshAgent playerMeshAgent;
 
     bool _falling = false;
@@ -25,14 +26,24 @@ public class PlayerController : MonoBehaviour
         MoveToMouseClick();
     }
 
+    public static void Select()
+    {
+        _selected = true;
+    }
+
+    public static void Unselect()
+    {
+        _selected = false;
+    }
+
     void MoveToMouseClick()
     {
         RaycastHit destinationHit;
-        if (Input.GetMouseButtonDown(0))
+        
+        if (_selected && Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(
-                    Camera.main.ScreenPointToRay(Input.mousePosition),
-                    out destinationHit, 100))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),
+                                out destinationHit, 10.0f))
             {
                 playerMeshAgent.destination = destinationHit.point;
             }

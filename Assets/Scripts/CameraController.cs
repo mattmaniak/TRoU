@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform cameraHolder;
     public float cameraSpeed = 2.0f;
+    public 
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,24 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RaycastHit objectHit;
+
         MoveCamera();
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),
+                                out objectHit, 100.0f)
+                && (objectHit.transform.gameObject.name == "Player Selector"))
+            {
+                PlayerController.Select();
+                Debug.Log(objectHit.transform.gameObject.name);
+            }
+            else
+            {
+                PlayerController.Unselect();
+            }
+        }
+
     }
 
     void MoveCamera()
