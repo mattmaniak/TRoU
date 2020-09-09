@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,14 +24,14 @@ public class CameraController : MonoBehaviour
                                 out objectHit, 100.0f)
                 && (objectHit.transform.gameObject.name == "Player Selector"))
             {
-                if (PlayerController.Selected)
+                if (PlayerSelector.Selected)
                 {
-                    PlayerController.Unselect();
+                    PlayerSelector.Unselect();
                     Debug.Log(objectHit.transform.gameObject.name + " unselected.");
                 }
                 else
                 {
-                    PlayerController.Select();
+                    PlayerSelector.Select();
                     Debug.Log(objectHit.transform.gameObject.name + " selected.");
                 }
             }
