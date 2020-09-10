@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class IsometricCamera : MonoBehaviour
 {
     public Transform cameraHolder;
-    public float cameraSpeed = 2.0f;
+    public float cameraSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
