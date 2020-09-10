@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 1.0f;
     
     NavMeshAgent _playerMeshAgent;
-
     bool _falling = false;
     bool _jumping = false;
     
@@ -32,7 +31,9 @@ public class PlayerController : MonoBehaviour
         
         if (PlayerSelector.Selected && Input.GetMouseButtonDown(0)
             && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),
-                               out destinationHit, 10.0f))
+                               out destinationHit, 10.0f)
+            && (destinationHit.transform.gameObject.name
+                != PlayerSelector.playerSelectorName))
         {
             _playerMeshAgent.destination = destinationHit.point;
         }

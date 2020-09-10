@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerSelector : MonoBehaviour
 {
-    
+    public const string playerSelectorName = "Player Selector";    
     public Material[] materials;
-    
+
     Renderer _renderer;
     static bool _selected = false;
 
