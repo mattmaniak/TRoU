@@ -7,10 +7,6 @@ namespace Player
 {
     public class Controller : MonoBehaviour
     {
-        public float walkSpeed = 1.5f;
-        public float runSpeed = 2.5f;
-        public float jumpHeight = 1.0f;
-        
         NavMeshAgent _playerMeshAgent;
         bool _falling = false;
         bool _jumping = false;
