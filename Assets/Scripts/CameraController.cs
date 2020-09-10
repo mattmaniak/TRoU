@@ -23,16 +23,16 @@ public class CameraController : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),
                                 out objectHit, 100.0f)
                 && (objectHit.transform.gameObject.name
-                    == PlayerSelector.playerSelectorName))
+                    == Player.Selector.playerSelectorName))
             {
-                if (PlayerSelector.Selected)
+                if (Player.Selector.Selected)
                 {
-                    PlayerSelector.Unselect();
+                    Player.Selector.Unselect();
                     Debug.Log(objectHit.transform.gameObject.name + " unselected.");
                 }
                 else
                 {
-                    PlayerSelector.Select();
+                    Player.Selector.Select();
                     Debug.Log(objectHit.transform.gameObject.name + " selected.");
                 }
             }
